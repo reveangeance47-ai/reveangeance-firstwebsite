@@ -1,24 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>System Check</title>
+  <title>Security Scan</title>
   <style>
-    body { font-family: Arial; text-align:center; margin-top:100px; background:#111; color:white; }
-    .box { background:#222; padding:30px; border-radius:10px; display:inline-block; }
-    button { padding:15px 30px; font-size:18px; cursor:pointer; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0f17;
+      color: #00ff9c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 400px;
+      background: #111827;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,255,156,0.2);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    .bar {
+      width: 100%;
+      height: 20px;
+      background: #1f2937;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: #00ff9c;
+      transition: width 0.3s;
+    }
+
+    .log {
+      text-align: left;
+      font-size: 12px;
+      margin-top: 15px;
+      height: 100px;
+      overflow: hidden;
+      color: #9ca3af;
+    }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h2>System Verification</h2>
-    <p>Click below to continue</p>
-    <button onclick="go()">Continue</button>
+
+<div class="container">
+  <h2>System Security Scan</h2>
+  <p id="status">Initializing...</p>
+
+  <div class="bar">
+    <div class="progress" id="progress"></div>
   </div>
 
-  <script>
-    function go() {
-      window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+  <div class="log" id="log"></div>
+</div>
+
+<script>
+  let progress = 0;
+  const progressBar = document.getElementById("progress");
+  const status = document.getElementById("status");
+  const log = document.getElementById("log");
+
+  const messages = [
+    "Connecting to secure server...",
+    "Checking IP configuration...",
+    "Scanning system files...",
+    "Analyzing network...",
+    "Detecting vulnerabilities...",
+    "Finalizing scan..."
+  ];
+
+  function update() {
+    if (progress >= 100) {
+      status.innerText = "Scan Complete ✔";
+      setTimeout(() => {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+      }, 1000);
+      return;
     }
-  </script>
+
+    progress += Math.random() * 15;
+    progressBar.style.width = progress + "%";
+
+    const msg = messages[Math.floor(Math.random() * messages.length)];
+    log.innerHTML += "> " + msg + "<br>";
+    log.scrollTop = log.scrollHeight;
+
+    setTimeout(update, 400);
+  }
+
+  setTimeout(update, 800);
+</script>
+
 </body>
 </html>
